@@ -12,7 +12,8 @@ import requests
 import UnityPy
 
 REPO = os.environ.get("GITHUB_REPOSITORY", "AMoldyWaffle/Silk-Song")
-API = "https://api.github.com/repos/" + REPO + "/contents/StreamingAssets/aa/WebGL?ref=main"
+REF = os.environ.get("GITHUB_REF_NAME", "main")
+API = "https://api.github.com/repos/" + REPO + "/contents/StreamingAssets/aa/WebGL?ref=" + REF
 OUT = Path("audit-report")
 OUT.mkdir(exist_ok=True)
 S = requests.Session()
