@@ -1,0 +1,28 @@
+name: Experimental WASM Initial Memory Builds
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Generate experimental variants
+        run: python tools/create_wasm_memory_variants.py
+      - name: Upload original and experimental variants
+        uses: actions/upload-artifact@v4
+        with:
+          name: wasm-initial-memory-experiments
+          path: |
+            Build/w-pt.wasm.unityweb
+            wasm-memory-experiments/
+          if-no-files-found: error
+          retention-days: 14
